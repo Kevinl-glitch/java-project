@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Go-Together - Payment Options</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 480px;
+      background: #fafafa;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      padding: 40px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 24px;
+      color: #222;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      text-align: left;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: #fff;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 15px 20px;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+      font-size: 18px;
+      user-select: none;
+    }
+
+    label:hover {
+      border-color: #f06262;
+    }
+
+    input[type="radio"] {
+      accent-color: #f06262;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .pay-button {
+      margin-top: 30px;
+      padding: 14px;
+      background-color: #f06262;
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .pay-button:hover {
+      background-color: #e55050;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Choose Payment Method</h1>
+    <form id="paymentForm">
+      <label>
+        <input type="radio" name="payment" value="credit-card" checked />
+        Credit / Debit Card
+      </label>
+
+      <label>
+        <input type="radio" name="payment" value="paypal" />
+        PayPal
+      </label>
+
+      <label>
+        <input type="radio" name="payment" value="google-pay" />
+        Google Pay
+      </label>
+
+      <label>
+        <input type="radio" name="payment" value="apple-pay" />
+        Apple Pay
+      </label>
+
+      <button type="submit" class="pay-button">Pay Now</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('paymentForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+      alert('Payment method selected: ' + paymentMethod + '\nProcessing payment...');
+      // Redirect or process payment logic here
+    });
+  </script>
+
+</body>
+</html>

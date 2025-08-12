@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Go-Together - Share Your Journey</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-link {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 100px 20px 50px;
+    }
+
+    .signup-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 30px;
+      padding: 60px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .signup-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .signup-header h1 {
+      color: #fff;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .signup-header p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.1rem;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-label {
+      display: block;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      outline: none;
+    }
+
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .form-input:focus {
+      border-color: #ff6b6b;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.2);
+    }
+
+    .connect {
+      width: 100%;
+      padding: 18px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 15px;
+      background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+      transition: all 0.3s ease;
+      color: aliceblue;
+      font-style: normal;
+    }
+
+    .connect:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(255, 107, 107, 0.6);
+    }
+
+    .divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 30px 0;
+    }
+
+    .divider span {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    .social-buttons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .social-btn {
+      flex: 1;
+      padding: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .social-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .features-mini {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .feature-mini {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.85rem;
+    }
+
+    .feature-mini-icon {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .login-link p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.95rem;
+    }
+
+    .login-link a {
+      color: #ff8e8e;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      color: #ff6b6b;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 15px 30px;
+      }
+
+      .main-container {
+        padding: 120px 20px 50px;
+      }
+
+      .signup-container {
+        padding: 40px 30px;
+      }
+
+      .social-buttons {
+        flex-direction: column;
+      }
+
+      .features-mini {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🚗</div>
+       Go-Together
+    </a>
+    <div class="nav-links">
+      <a href="#" class="nav-link">How it Works</a>
+      <a href="#" class="nav-link">Safety</a>
+      <a href="#" class="nav-link">Support</a>
+    </div>
+  </nav>
+
+  <main class="main-container">
+    <section class="signup-container">
+      <div class="signup-header">
+        <h1>Join the Journey</h1>
+        <p>Create your account and start sharing rides with your community.</p>
+      </div>
+
+      <div class="social-buttons">
+        <a href="#" class="social-btn"><span>📧</span> Google</a>
+        <a href="#" class="social-btn"><span>📘</span> Facebook</a>
+      </div>
+
+      <div class="divider"><span>or sign up with email</span></div>
+
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="fullName" class="form-label">Full Name</label>
+          <input type="text" id="fullName" class="form-input" placeholder="Enter your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" id="email" class="form-input" placeholder="Enter your email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone" class="form-label">Phone Number</label>
+          <input type="tel" id="phone" class="form-input" placeholder="Enter your phone number" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" class="form-input" placeholder="Create a password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <input type="password" id="confirmPassword" class="form-input" placeholder="Confirm your password" required />
+        </div>
+<div class="connect">
+  <a href="ridefind.html" class="btn btn-secondary">Get Started</a>
+</div>
+      </form>
+
+      <div class="features-mini">
+        <div class="feature-mini">
+          <span class="feature-mini-icon">🔒</span>
+          Secure & Safe
+        </div>
+        <div class="feature-mini">
+          <span class="feature-mini-icon">⚡</span>
+          Quick Setup
+        </div>
+        <div class="feature-mini">
+          <span class="feature-mini-icon">🌟</span>
+          Verified Users
+        </div>
+      </div>
+
+      <div class="login-link">
+        <p>Already have an account? <a href="login.html">Sign In</a></p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+     document.getElementById('signupForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const pwd = document.getElementById('password').value;
+    const confirmPwd = document.getElementById('confirmPassword').value;
+
+    if (pwd !== confirmPwd) {
+      alert('Passwords do not match.');
+      return;
+    }
+
+    const btn = document.querySelector('.signup-btn');
+    const originalText = btn.textContent;
+    btn.textContent = 'Creating Account...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      window.location.href = 'http://127.0.0.1:5500/ridefind.html';
+    }, 2000);
+  });
+  </script>
+</body>
+
+</html>

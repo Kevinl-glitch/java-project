@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Go-Together - Find Your Perfect Ride</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 20px;
+      transition: background 0.3s, transform 0.3s;
+      padding: 10px 20px;
+      border-radius: 25px;
+    }
+
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Main container */
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 120px 20px 50px;
+      min-height: 100vh;
+    }
+
+    .find-ride-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 30px;
+      padding: 50px;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .find-ride-container::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+      border-radius: 30px 30px 0 0;
+      margin-bottom: 20px;
+    }
+
+    .back-button {
+      color: white;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 10px 20px;
+      border-radius: 25px;
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .page-header p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-label {
+      color: white;
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .form-input, .datetime-input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      outline: none;
+    }
+
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .location-inputs {
+      display: flex;
+      gap: 15px;
+    }
+
+    .quick-options {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .quick-option {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .seat-selector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 10px;
+    }
+
+    .seat-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      font-weight: bold;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+    }
+
+    .seat-count {
+      font-size: 2rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .search-btn {
+      width: 100%;
+      padding: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 15px;
+      border: none;
+      background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+      color: white;
+      margin-top: 30px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🚗</div>
+       Go-Together
+    </a>
+    <div class="nav-links">
+      <a href="#" class="nav-link">How it Works</a>
+      <a href="#" class="nav-link">Safety</a>
+      <a href="#" class="nav-link">Support</a>
+    </div>
+  </nav>
+
+  <main class="main-container">
+    <section class="find-ride-container">
+      <div class="back-button" onclick="window.location.href='index.html'">← Back to Home</div>
+
+      <div class="page-header">
+        <h1>Find Your Perfect Ride</h1>
+        <p>Discover available rides and connect with drivers heading your way</p>
+      </div>
+
+      <form id="findRideForm" onsubmit="event.preventDefault(); searchRides();">
+        <div class="form-group">
+          <label class="form-label">Where are you traveling?</label>
+          <div class="location-inputs">
+            <input type="text" id="fromLocation" class="form-input" placeholder="From (e.g., Mumbai)" required>
+            <input type="text" id="toLocation" class="form-input" placeholder="To (e.g., Pune)" required>
+          </div>
+          <div class="quick-options">
+            <div class="quick-option" onclick="setQuickRoute('Mumbai', 'Pune')">Mumbai → Pune</div>
+            <div class="quick-option" onclick="setQuickRoute('Delhi', 'Gurgaon')">Delhi → Gurgaon</div>
+            <div class="quick-option" onclick="setQuickRoute('Bangalore', 'Mysore')">Bangalore → Mysore</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">When do you want to travel?</label>
+          <input type="datetime-local" id="travelDateTime" class="datetime-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">How many seats do you need?</label>
+          <div class="seat-selector">
+            <button type="button" class="seat-btn" onclick="changeSeats(-1)">−</button>
+            <div class="seat-count" id="seatCount">1</div>
+            <button type="button" class="seat-btn" onclick="changeSeats(1)">+</button>
+          </div>
+        </div>
+        <button type="submit" class="search-btn">🔍 Search Available Rides</button>
+
+      </form>
+    </section>
+  </main>
+
+  <script>
+    let seatCount = 1;
+
+    function changeSeats(change) {
+      seatCount = Math.min(4, Math.max(1, seatCount + change));
+      document.getElementById('seatCount').textContent = seatCount;
+    }
+
+    function setQuickRoute(from, to) {
+      document.getElementById('fromLocation').value = from;
+      document.getElementById('toLocation').value = to;
+    }
+
+   function searchRides() {
+  document.querySelector('.search-btn').textContent = 'Searching...';
+  setTimeout(() => {
+    window.location.href = 'rideconfirm.html';
+  }, 1500);
+}
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      document.getElementById('travelDateTime').value = now.toISOString().slice(0, 16);
+    });
+
+    document.getElementById('searchBtn').addEventListener('click', function () {
+    window.location.href = 'rideconfirm.html';
+  });
+  </script>
+</body>
+</html>
